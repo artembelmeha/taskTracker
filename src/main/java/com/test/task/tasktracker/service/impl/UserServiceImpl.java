@@ -43,11 +43,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(long userId, User user) {
+    public User update(User user) {
         if (user != null) {
-            User oldUser = readById(userId);
+            User oldUser = readById(user.getUserId());
             if (oldUser != null) {
-                user.setUserId(userId);
                 return userRepository.save(user);
             }
         }

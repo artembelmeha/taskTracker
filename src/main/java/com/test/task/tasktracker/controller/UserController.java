@@ -1,7 +1,5 @@
 package com.test.task.tasktracker.controller;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -33,14 +31,14 @@ public class UserController {
         return ResponseEntity.ok(userService.readById(userId));
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.create(user));
     }
 
-    @PutMapping("/{userId}")
-    public ResponseEntity<User> updateUser(@PathVariable long userId, @RequestBody User user) {
-        return ResponseEntity.ok(userService.update(userId, user));
+    @PutMapping("")
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        return ResponseEntity.ok(userService.update(user));
     }
 
     @DeleteMapping("/{userId}")
@@ -49,7 +47,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/all")
+    @GetMapping("")
     public ResponseEntity<List<User>> getUsers() {
         List<User> users = userService.getAll();
         if (users.isEmpty()) {

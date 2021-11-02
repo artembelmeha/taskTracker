@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.test.task.tasktracker.model.Task;
@@ -25,8 +26,8 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @PostMapping("/users/{userId}")
-    public ResponseEntity<Task> createTask(@PathVariable long userId, @RequestBody Task task) {
+    @PostMapping("")
+    public ResponseEntity<Task> createTask(@RequestParam long userId, @RequestBody Task task) {
         return ResponseEntity.ok(taskService.create(task, userId));
     }
 
@@ -35,9 +36,9 @@ public class TaskController {
         return ResponseEntity.ok(taskService.readById(taskId));
     }
 
-    @PutMapping("/{taskId}/users/{userId}")
-    public ResponseEntity<Task> updateTask(@PathVariable long taskId, @PathVariable long userId, @RequestBody Task task) {
-        return ResponseEntity.ok(taskService.update(taskId, task, userId));
+    @PutMapping("")
+    public ResponseEntity<Task> updateTask(@RequestParam long userId, @RequestBody Task task) {
+        return ResponseEntity.ok(taskService.update(task, userId));
     }
 
     @DeleteMapping("/{taskId}")
@@ -45,8 +46,8 @@ public class TaskController {
         taskService.delete(taskId);
     }
 
-    @GetMapping("/users/{userId}/all")
-    public ResponseEntity<List<Task>> getTaskByOwnerId(@PathVariable long userId) {
+    @GetMapping("/users")
+    public ResponseEntity<List<Task>> getTaskByOwnerId(@RequestParam long userId) {
         return ResponseEntity.ok(taskService.getAllTaskByUserId(userId));
     }
 

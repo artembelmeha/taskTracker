@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.test.task.tasktracker.exception.NullEntityException;
@@ -39,8 +38,9 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task create(Task task, long userId) {
         try {
-            task.setOwner(userService.readById(userId));
-            return taskRepository.save(task);
+            Task newTask = task;
+            newTask.setOwner(userService.readById(userId));
+            return taskRepository.save(newTask);
         } catch (RuntimeException e) {
             throw new NullEntityException("Task cannot be 'null'");
         }
@@ -56,11 +56,10 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task update(long taskId, Task task) {
+    public Task update(Task task) {
         if (task != null) {
-            Task oldTask = readById(taskId);
+            Task oldTask = readById(task.getTaskId());
             if (oldTask != null) {
-                task.setTaskId(taskId);
                 return taskRepository.save(task);
             }
         }
@@ -68,12 +67,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task update(long taskId, Task task, long userId) {
+    public Task update(Task task, long userId) {
         if (task != null) {
             User user = userService.readById(userId);
-            Task oldTask = readById(userId);
+            Task oldTask = readById(task.getTaskId());
             if (oldTask != null) {
-                task.setTaskId(taskId);
                 task.setOwner(user);
                 return taskRepository.save(task);
             }
