@@ -51,8 +51,8 @@ public class TaskController {
         taskService.delete(taskId);
     }
 
-    @GetMapping("/users/{userId}")
-    public ResponseEntity<List<Task>> getTaskByOwnerId(@PathVariable long userId) {
+    @GetMapping("/users")
+    public ResponseEntity<List<Task>> getTaskByOwnerId(@RequestParam long userId) {
         return ResponseEntity.ok(taskService.getAllTaskByUserId(userId));
     }
 
