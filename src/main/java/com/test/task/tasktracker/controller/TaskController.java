@@ -36,6 +36,11 @@ public class TaskController {
         return ResponseEntity.ok(taskService.readById(taskId));
     }
 
+    @GetMapping("")
+    public ResponseEntity<List<Task>> getAllTask() {
+        return ResponseEntity.ok(taskService.getAll());
+    }
+
     @PutMapping("")
     public ResponseEntity<Task> updateTask(@RequestParam long userId, @RequestBody Task task) {
         return ResponseEntity.ok(taskService.update(task, userId));
