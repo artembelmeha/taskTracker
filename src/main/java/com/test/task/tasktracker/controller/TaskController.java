@@ -1,6 +1,7 @@
 package com.test.task.tasktracker.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,7 +38,10 @@ public class TaskController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<Task>> getAllTask() {
+    public ResponseEntity<List<Task>> getAllTask(@RequestParam(required = false) Optional<Long> userId) {
+        if (userId.isPresent()) {
+            return ResponseEntity.ok(taskService.getAllTaskByUserId(userId.get()));
+        }
         return ResponseEntity.ok(taskService.getAll());
     }
 
@@ -50,12 +54,5 @@ public class TaskController {
     public void deleteTask(@PathVariable long taskId) {
         taskService.delete(taskId);
     }
-
-    @GetMapping("/users")
-    public ResponseEntity<List<Task>> getTaskByOwnerId(@RequestParam long userId) {
-        return ResponseEntity.ok(taskService.getAllTaskByUserId(userId));
-    }
-
-
 
 }
