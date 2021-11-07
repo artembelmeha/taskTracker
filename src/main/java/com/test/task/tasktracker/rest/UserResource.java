@@ -1,4 +1,7 @@
-package com.test.task.tasktracker.controller;
+package com.test.task.tasktracker.rest;
+
+import static com.test.task.tasktracker.uri.ResourcePaths.USERS_PATH;
+import static com.test.task.tasktracker.uri.ResourcePaths.USER_ID_PATH;
 
 import java.util.List;
 
@@ -17,37 +20,37 @@ import com.test.task.tasktracker.model.User;
 import com.test.task.tasktracker.service.UserService;
 
 @RestController
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping(USERS_PATH)
+public class UserResource {
 
     private UserService userService;
 
-    private UserController(UserService userService) {
+    private UserResource(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping(USER_ID_PATH)
     public ResponseEntity<User> getUser(@PathVariable long userId) {
         return ResponseEntity.ok(userService.readById(userId));
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.create(user));
     }
 
-    @PutMapping("")
+    @PutMapping
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.update(user));
     }
 
-    @DeleteMapping("/{userId}")
+    @DeleteMapping(USER_ID_PATH)
     public void deleteUser(@PathVariable long userId) {
         userService.delete(userId);
     }
 
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<List<User>> getUsers() {
         List<User> users = userService.getAll();
         if (users.isEmpty()) {

@@ -1,4 +1,7 @@
-package com.test.task.tasktracker.controller;
+package com.test.task.tasktracker.rest;
+
+import static com.test.task.tasktracker.uri.ResourcePaths.TASKS_PATH;
+import static com.test.task.tasktracker.uri.ResourcePaths.TASK_ID_PATH;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,26 +21,26 @@ import com.test.task.tasktracker.model.Task;
 import com.test.task.tasktracker.service.TaskService;
 
 @RestController
-@RequestMapping("/tasks")
-public class TaskController {
+@RequestMapping(TASKS_PATH)
+public class TaskResource {
 
     private TaskService taskService;
 
-    private TaskController(TaskService taskService) {
+    private TaskResource(TaskService taskService) {
         this.taskService = taskService;
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<Task> createTask(@RequestParam long userId, @RequestBody Task task) {
         return ResponseEntity.ok(taskService.create(task, userId));
     }
 
-    @GetMapping("/{taskId}")
+    @GetMapping(TASK_ID_PATH)
     public ResponseEntity<Task> getTask(@PathVariable long taskId) {
         return ResponseEntity.ok(taskService.readById(taskId));
     }
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<List<Task>> getAllTask(@RequestParam(required = false) Optional<Long> userId) {
         if (userId.isPresent()) {
             return ResponseEntity.ok(taskService.getAllTaskByUserId(userId.get()));
@@ -45,12 +48,12 @@ public class TaskController {
         return ResponseEntity.ok(taskService.getAll());
     }
 
-    @PutMapping("")
+    @PutMapping
     public ResponseEntity<Task> updateTask(@RequestParam long userId, @RequestBody Task task) {
         return ResponseEntity.ok(taskService.update(task, userId));
     }
 
-    @DeleteMapping("/{taskId}")
+    @DeleteMapping(TASK_ID_PATH)
     public void deleteTask(@PathVariable long taskId) {
         taskService.delete(taskId);
     }
