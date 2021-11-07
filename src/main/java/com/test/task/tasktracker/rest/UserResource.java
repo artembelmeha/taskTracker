@@ -2,10 +2,14 @@ package com.test.task.tasktracker.rest;
 
 import static com.test.task.tasktracker.uri.ResourcePaths.USERS_PATH;
 import static com.test.task.tasktracker.uri.ResourcePaths.USER_ID_PATH;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,13 +29,14 @@ public class UserResource {
 
     private UserService userService;
 
-    private UserResource(UserService userService) {
+    public UserResource(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping(USER_ID_PATH)
     public ResponseEntity<User> getUser(@PathVariable long userId) {
-        return ResponseEntity.ok(userService.readById(userId));
+        return ResponseEntity.ok(userService.readById(userId)
+                .add(linkTo(methodOn(UserResource.class).getUsers()).withSelfRel()));
     }
 
     @PostMapping
@@ -51,11 +56,14 @@ public class UserResource {
 
 
     @GetMapping
-    public ResponseEntity<List<User>> getUsers() {
+    public ResponseEntity<CollectionModel<User>> getUsers() {
         List<User> users = userService.getAll();
-        if (users.isEmpty()) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-        return ResponseEntity.ok(users);
+        users.forEach(user -> {
+            user.add(linkTo(methodOn(UserResource.class).getUser(user.getUserId())).withSelfRel());
+            user.add(linkTo(methodOn(UserResource.class).updateUser(user)).withSelfRel());
+            user.add(linkTo(methodOn(TaskResource.class).getAllTask(Optional.of(user.getUserId()))).withSelfRel());
+        });
+        Link allUsersLink = linkTo(methodOn(UserResource.class).getUsers()).withSelfRel();
+        return ResponseEntity.ok(CollectionModel.of(users, allUsersLink));
     }
 }

@@ -26,7 +26,7 @@ public class TaskResource {
 
     private TaskService taskService;
 
-    private TaskResource(TaskService taskService) {
+    public TaskResource(TaskService taskService) {
         this.taskService = taskService;
     }
 
