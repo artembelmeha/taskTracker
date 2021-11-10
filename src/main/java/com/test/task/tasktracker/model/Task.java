@@ -31,9 +31,11 @@ public class Task {
     private long taskId;
 
     @Column(name = "name", nullable = false)
+    @NotBlank(message = "Name of task cannot be empty")
     private String name;
 
     @Column(name = "priority")
+    @NotBlank(message = "Priority cannot be empty")
     @Enumerated(EnumType.STRING)
     private Priority priority;
 

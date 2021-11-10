@@ -6,6 +6,8 @@ import static com.test.task.tasktracker.uri.ResourcePaths.TASK_ID_PATH;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +33,7 @@ public class TaskResource {
     }
 
     @PostMapping
-    public ResponseEntity<Task> createTask(@RequestParam long userId, @RequestBody Task task) {
+    public ResponseEntity<Task> createTask(@RequestParam long userId, @Valid @RequestBody Task task) {
         return ResponseEntity.ok(taskService.create(task, userId));
     }
 
@@ -49,7 +51,7 @@ public class TaskResource {
     }
 
     @PutMapping
-    public ResponseEntity<Task> updateTask(@RequestParam long userId, @RequestBody Task task) {
+    public ResponseEntity<Task> updateTask(@RequestParam long userId,  @Valid @RequestBody Task task) {
         return ResponseEntity.ok(taskService.update(task, userId));
     }
 

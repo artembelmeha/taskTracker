@@ -9,7 +9,6 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.test.task.tasktracker.exception.NullEntityException;
 import com.test.task.tasktracker.model.User;
 import com.test.task.tasktracker.repository.UserRepository;
 import com.test.task.tasktracker.service.UserService;
@@ -26,41 +25,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) {
-        try {
-            return userRepository.save(user);
-        } catch (IllegalArgumentException e) {
-            throw new NullEntityException("User cannot be 'null'");
-        }
+        return userRepository.save(user);
     }
 
     @Override
     public User readById(long id) {
         Optional<User> optional = userRepository.findById(id);
-        if (optional.isPresent()) {
-            return optional.get();
-        }
-        throw new EntityNotFoundException("User with id " + id + " not found");
+        return optional.orElseThrow(() -> new EntityNotFoundException("User with id " + id + " not found"));
     }
 
     @Override
     public User update(User user) {
-        if (user != null) {
-            User oldUser = readById(user.getUserId());
-            if (oldUser != null) {
-                return userRepository.save(user);
-            }
-        }
-        throw new NullEntityException("User cannot be 'null'");
+        readById(user.getUserId());
+        return userRepository.save(user);
     }
 
     @Override
     public void delete(long id) {
         User user = readById(id);
-        if (user != null) {
-            userRepository.delete(user);
-        } else {
-            throw new NullEntityException("User cannot be 'null'");
-        }
+        userRepository.delete(user);
     }
 
     @Override
