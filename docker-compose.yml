@@ -1,0 +1,45 @@
+version: '1'
+services:
+
+  eureka-server:
+    image: eureka-server
+    container_name: eureka-server
+    build:
+      context: ""
+      dockerfile: eurekaServer/Dockerfile
+    ports:
+      - "8761:8761"
+
+  zuul-server:
+    image: zuul-server
+    container_name: zuul-server
+    restart: on-failure
+    depends_on:
+      - eureka-server
+    build:
+      context: ""
+      dockerfile: zuulServer/Dockerfile
+    ports:
+      - "9000:9000"
+
+  users-service:
+    image: users-service
+    container_name: users-service
+    depends_on:
+      - zuul-server
+    build:
+      context: ""
+      dockerfile: userService/Dockerfile
+    ports:
+      - "8001:8001"
+
+  tasks-service:
+    image: tasks-service
+    container_name: tasks-service
+    depends_on:
+      - zuul-server
+    build:
+      context: ""
+      dockerfile: tasksService/Dockerfile
+    ports:
+      - "8000:8000"
