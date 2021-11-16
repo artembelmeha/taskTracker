@@ -1,4 +1,4 @@
-package example;
+package com.example;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 

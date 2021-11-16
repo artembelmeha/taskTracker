@@ -1,10 +1,10 @@
-package example.rest;
+package com.example.rest;
 
-import static example.uri.ResourcePaths.TASKS_PATH;
-import static example.uri.ResourcePaths.TASK_ID_PATH;
+import static com.example.uri.ResourcePaths.TASKS_PATH;
+import static com.example.uri.ResourcePaths.TASK_ID_PATH;
 
-import example.model.Task;
-import example.service.TaskService;
+import com.example.model.Task;
+import com.example.service.TaskService;
 
 import java.util.List;
 import java.util.Optional;

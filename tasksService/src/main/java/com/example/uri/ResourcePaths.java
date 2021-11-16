@@ -1,4 +1,4 @@
-package example.uri;
+package com.example.uri;
 
 public abstract class ResourcePaths {
     public static final String TASKS_PATH = "/tasks";

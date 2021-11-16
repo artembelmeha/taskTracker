@@ -8,12 +8,8 @@
         <groupId>com.test.task</groupId>
         <artifactId>taskTracker</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <artifactId>userService</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <name>userService</name>
-    <description>userService</description>
 
     <build>
         <plugins>

@@ -1,8 +1,8 @@
-package example.service.impl;
+package com.example.service.impl;
 
-import example.model.Task;
-import example.repository.TaskRepository;
-import example.service.TaskService;
+import com.example.model.Task;
+import com.example.repository.TaskRepository;
+import com.example.service.TaskService;
 
 import java.util.ArrayList;
 import java.util.List;

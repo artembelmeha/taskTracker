@@ -1,6 +1,6 @@
-package example.repository;
+package com.example.repository;
 
-import example.model.Task;
+import com.example.model.Task;
 
 import java.util.List;
 
