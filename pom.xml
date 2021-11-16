@@ -22,7 +22,7 @@
 
     <modules>
         <module>tasksService</module>
-        <module>userService</module>
+        <module>usersService</module>
         <module>eurekaServer</module>
         <module>zuulServer</module>
     </modules>

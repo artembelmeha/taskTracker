@@ -9,7 +9,7 @@
         <artifactId>taskTracker</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>userService</artifactId>
+    <artifactId>usersService</artifactId>
 
     <build>
         <plugins>

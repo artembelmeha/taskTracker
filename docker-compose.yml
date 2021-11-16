@@ -29,7 +29,7 @@ services:
       - zuul-server
     build:
       context: ""
-      dockerfile: userService/Dockerfile
+      dockerfile: usersService/Dockerfile
     ports:
       - "8001:8001"
 
