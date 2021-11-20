@@ -1,30 +1,3 @@
-#spring.mandatory-file-encoding=UTF-8
-## To See H2 Console in Browser:
-## http://localhost:8080/h2-console
-## Enabling H2 Console
-#spring.h2.console.enabled=true
-#
-## DB
-## ===============================
-#
-#spring.datasource.url=jdbc:h2:~/taskService;AUTO_SERVER=TRUE
-#spring.datasource.driverClassName=org.h2.Driver
-#spring.datasource.username=sa
-#spring.datasource.password=
-#
-## ===============================
-## JPA / HIBERNATE
-## ===============================
-#spring.jpa.show-sql=true
-#spring.jpa.hibernate.ddl-auto=update
-#spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect
-#
-#spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
-#
-#server.port = 8000
-#spring.application.name = tasks-service
-#eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka
-
 server:
   port: ${PORT:8000} # Indicate the default PORT where this service will be started
 
