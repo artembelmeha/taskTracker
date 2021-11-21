@@ -18,7 +18,6 @@ spring:
     name: zuul-server #current service name to be used by the eureka server
 
 zuul:
-  prefix: /api
   routes:
     users-service: /users-service/**
     tasks-service: /tasks-service/**

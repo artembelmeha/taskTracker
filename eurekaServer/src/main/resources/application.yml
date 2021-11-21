@@ -1,17 +1,10 @@
-info:
-  component: eureka-server
-
-server:
-  port: ${PORT:8761} # Indicate the default PORT where this service will be started
-
-eureka:
-  instance:
-    hostname: eureka-server
-  client:
-    registerWithEureka: false # telling the server not to register himself in the service registry
-    fetchRegistry: false
-
 spring:
   application:
-    name: eureka # current service name
+    name: eureka-server # current service name
   port: 5000
+  cloud:
+    config:
+      server:
+        git:
+          uri:
+
