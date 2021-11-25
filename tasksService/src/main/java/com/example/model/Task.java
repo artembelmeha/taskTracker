@@ -29,8 +29,7 @@ public class Task {
     @NotBlank(message = "Name of task cannot be empty")
     private String name;
 
-    @Column(name = "priority")
-    @NotBlank(message = "Priority cannot be empty")
+    @Column(name = "priority", nullable = false)
     @Enumerated(EnumType.STRING)
     private Priority priority;
 
@@ -41,7 +40,6 @@ public class Task {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @NotBlank(message = "The 'owner_id' cannot be null")
     @Column(name = "owner_id", nullable = false)
     private Long ownerId;
 

@@ -10,4 +10,6 @@ public interface UserService {
     User update(User user);
     void delete(long id);
     List<User> getAll();
+    List<Long> getAllTasksIdByUserId(long userId);
+    void deleteTaskFromUserByTaskId(long taskId);
 }

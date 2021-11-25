@@ -2,6 +2,7 @@ package com.example.service.impl;
 
 import com.example.model.Task;
 import com.example.repository.TaskRepository;
+import com.example.service.UserClient;
 import com.example.service.TaskService;
 
 import java.util.ArrayList;
@@ -10,15 +11,19 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TaskServiceImpl implements TaskService {
 
     private TaskRepository taskRepository;
+    private UserClient userClient;
 
-    private TaskServiceImpl(TaskRepository taskRepository) {
+    @Autowired
+    private TaskServiceImpl(TaskRepository taskRepository, UserClient userClient) {
         this.taskRepository = taskRepository;
+        this.userClient = userClient;
     }
 
     @Override
@@ -41,6 +46,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void delete(long id) {
+        userClient.removeTaskFromUser(id);
         taskRepository.delete(readById(id));
     }
 

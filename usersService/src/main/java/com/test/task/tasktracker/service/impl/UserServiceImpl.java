@@ -51,4 +51,14 @@ public class UserServiceImpl implements UserService {
         List<User> users = userRepository.findAll();
         return users.isEmpty() ? new ArrayList<>() : users;
     }
+
+    public List<Long> getAllTasksIdByUserId(long userId) {
+        List<Long> tasksIds = readById(userId).getMyTasks();
+        return tasksIds.isEmpty() ? new ArrayList<>() : tasksIds;
+    }
+
+    @Override
+    public void deleteTaskFromUserByTaskId(long taskId) {
+        userRepository.deleteTaskFromUserByTaskId(taskId);
+    }
 }
