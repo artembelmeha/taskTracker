@@ -25,6 +25,7 @@
         <module>usersService</module>
         <module>eurekaServer</module>
         <module>zuulServer</module>
+        <module>configServer</module>
     </modules>
     <dependencies>
         <!-- Netflix – Eureka -->
