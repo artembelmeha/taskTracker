@@ -5,6 +5,7 @@ import static com.test.task.tasktracker.uri.ResourcePaths.USER_ID_PATH;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -53,6 +54,11 @@ public class UserResource {
     @DeleteMapping(USER_ID_PATH)
     public void deleteUser(@PathVariable long userId) {
         userService.delete(userId);
+    }
+
+    @DeleteMapping("/task/{taskId}")
+    public void deleteTaskFromUserByTaskId(@PathVariable long taskId) {
+        userService.deleteTaskFromUserByTaskId(taskId);
     }
 
 
