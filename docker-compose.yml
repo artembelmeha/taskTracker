@@ -1,5 +1,20 @@
 version: '3'
 services:
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: redis-commander
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOSTS=redis:redis
+    ports:
+      - "8081:8081"
 
   eureka-server:
     image: eureka-server
@@ -27,6 +42,8 @@ services:
     container_name: users-service
     depends_on:
       - zuul-server
+    environment:
+      - SPRING_REDIS_HOST=redis
     build:
       context: ""
       dockerfile: usersService/Dockerfile
@@ -38,6 +55,8 @@ services:
     container_name: tasks-service
     depends_on:
       - zuul-server
+    environment:
+      - SPRING_REDIS_HOST=redis
     build:
       context: ""
       dockerfile: tasksService/Dockerfile

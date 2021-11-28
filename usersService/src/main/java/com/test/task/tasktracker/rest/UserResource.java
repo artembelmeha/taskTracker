@@ -1,15 +1,16 @@
 package com.test.task.tasktracker.rest;
 
 import static com.test.task.tasktracker.uri.ResourcePaths.USERS_PATH;
+import static com.test.task.tasktracker.uri.ResourcePaths.USERS_TASK_ID_PATH;
 import static com.test.task.tasktracker.uri.ResourcePaths.USER_ID_PATH;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
 
 import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
@@ -23,15 +24,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.test.task.tasktracker.model.User;
+import com.test.task.tasktracker.service.TaskEventProducer;
 import com.test.task.tasktracker.service.UserService;
 
 @RestController
 @RequestMapping(USERS_PATH)
 public class UserResource {
 
+    private TaskEventProducer taskEventProducer;
+
     private UserService userService;
 
-    public UserResource(UserService userService) {
+    @Autowired
+    public UserResource(TaskEventProducer taskEventProducer, UserService userService) {
+        this.taskEventProducer = taskEventProducer;
         this.userService = userService;
     }
 
@@ -53,10 +59,12 @@ public class UserResource {
 
     @DeleteMapping(USER_ID_PATH)
     public void deleteUser(@PathVariable long userId) {
+        userService.getAllTasksIdByUserId(userId)
+                .forEach(taskId->taskEventProducer.publishEvent(taskId));
         userService.delete(userId);
     }
 
-    @DeleteMapping("/task/{taskId}")
+    @DeleteMapping(USERS_TASK_ID_PATH)
     public void deleteTaskFromUserByTaskId(@PathVariable long taskId) {
         userService.deleteTaskFromUserByTaskId(taskId);
     }
