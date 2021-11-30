@@ -1,13 +1,27 @@
 pipeline {
     agent any
+    tools {
+        maven 'Maven 3.3.9'
+        jdk 'jdk8'
+    }
     stages {
-        stage('Build') {
+        stage ('Initialize') {
             steps {
-                sh 'echo "Hello World"'
                 sh '''
-                    echo "Multiline shell steps works too"
-                    ls -lah
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
                 '''
+            }
+        }
+
+        stage ('Build') {
+            steps {
+                sh 'mvn clean install' 
+            }
+            post {
+                success {
+                    junit 'target/surefire-reports/**/*.xml' 
+                }
             }
         }
     }
