@@ -19,11 +19,12 @@ pipeline {
                 sh 'mvn clean install' 
             }
         }
-         stage('SonarQube analysis') {
-            def scannerHome = tool 'SonarScanner 4.0';
-            withSonarQubeEnv('My SonarQube Server') {
-              sh "${scannerHome}/bin/sonar-scanner"
+        stage ('SonarQube analysis') {
+            steps {
+                        withSonarQubeEnv(credentialsId: 'f225455e-ea59-40fa-8af7-08176e86507a', installationName: 'My SonarQube Server') {
+                            sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
+                        }
             }
-         }
+        }
     }
 }
