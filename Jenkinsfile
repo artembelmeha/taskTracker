@@ -24,7 +24,6 @@ pipeline {
                 sh 'mvn test'
             }
         }
-
         stage ('SonarQube analysis') {
             steps {
                         withSonarQubeEnv('SonarQube') {
@@ -32,5 +31,16 @@ pipeline {
                         }
             }
         }
+         stage('Docker Build') {
+              agent any
+              steps {
+                sh 'docker build -t redis:latest .'
+                sh 'docker build -t rediscommander/redis-commander:latest .'
+                sh 'docker build -t eurekaServer/Dockerfile:latest .'
+                sh 'docker build -t zuulServer/Dockerfile:latest .'
+                sh 'docker build -t usersService/Dockerfile:latest .'
+                sh 'docker build -t tasksService/Dockerfile:latest .'
+            }
+         }
     }
 }
