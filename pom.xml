@@ -16,7 +16,7 @@
     <description>taskTracker</description>
 
     <properties>
-        <java.version>1.8</java.version>
+        <release>11</release>
         <spring-cloud.version>Hoxton.SR11</spring-cloud.version>
     </properties>
 
@@ -25,7 +25,6 @@
         <module>usersService</module>
         <module>eurekaServer</module>
         <module>zuulServer</module>
-        <module>configServer</module>
     </modules>
     <dependencies>
         <!-- Netflix – Eureka -->
@@ -93,7 +92,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-hateoas</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-client</artifactId>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -106,6 +108,13 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestones</url>
+        </repository>
+    </repositories>
     <build>
         <plugins>
             <plugin>
@@ -119,6 +128,11 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.8.0.2131</version>
             </plugin>
         </plugins>
     </build>
