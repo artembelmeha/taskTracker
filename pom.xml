@@ -16,7 +16,7 @@
     <description>taskTracker</description>
 
     <properties>
-        <java.version>11</java.version>
+        <release>11</release>
         <spring-cloud.version>Hoxton.SR11</spring-cloud.version>
     </properties>
 
