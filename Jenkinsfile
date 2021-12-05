@@ -32,7 +32,6 @@ pipeline {
             }
         }
          stage('Docker Build') {
-              agent any
               steps {
                 sh 'docker build -t redis:latest .'
                 sh 'docker build -t rediscommander/redis-commander:latest .'
