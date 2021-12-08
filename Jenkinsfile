@@ -34,7 +34,7 @@ pipeline {
                         }
             }
         }
-        stage('Docker maven test') {
+        stage ('Docker maven test') {
             agent {
                 docker {
           // Set both label and image
