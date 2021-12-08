@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'docker' 
+    }
     tools {
         maven 'Maven 3.3.9'
         jdk 'jdk11'
@@ -31,6 +33,15 @@ pipeline {
                             sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.8.0.2131:sonar'
                         }
             }
+        }
+        stage ('Docker maven test') {
+            agent {
+                docker {
+          // Set both label and image
+                    label 'docker'
+                    image 'redis'
+                }
+            }   
         }
     }
 }
