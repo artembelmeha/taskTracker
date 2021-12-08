@@ -5,7 +5,6 @@ pipeline {
         jdk 'jdk11'
     }
     stages {
-        def eurekaServer
         stage ('Initialize') {
             steps {
                 sh '''
@@ -34,8 +33,17 @@ pipeline {
         }
          stage('Docker Build') {
               steps {
-                eurekaServer = docker.build("eurekaServer/Dockerfile:latest")
-                eurekaServer.push()
+                  node {
+    checkout scm
+
+    def customImage = docker.build("eurekaServer/Dockerfile:latest")
+
+    customImage.inside {
+        sh 'make test'
+    }
+}
+//                 eurekaServer = docker.build("eurekaServer/Dockerfile:latest")
+//                 eurekaServer.push()
 //                 sh 'docker build -t redis:latest .'
 //                 sh 'docker build -t rediscommander/redis-commander:latest .'
 //                 sh 'docker build -t eurekaServer/Dockerfile:latest .'
@@ -44,12 +52,12 @@ pipeline {
 //                 sh 'docker build -t tasksService/Dockerfile:latest .'
             }
          }
-         stage('Docker Publish') {
-              steps {
-                docker.withRegistry('https://hub.docker.com/repository/docker/belmeha/test', 'belmeha') {
-                  eurekaServer.push()
-                }
-              }
-         }
+//          stage('Docker Publish') {
+//               steps {
+//                 docker.withRegistry('https://hub.docker.com/repository/docker/belmeha/test', 'belmeha') {
+//                   eurekaServer.push()
+//                 }
+//               }
+//          }
     }
 }
