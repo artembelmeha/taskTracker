@@ -41,7 +41,10 @@ pipeline {
                     label 'docker'
                     image 'redis'
                 }
-            }   
+            }
+            steps {
+            
+            }
         }
     }
 }
