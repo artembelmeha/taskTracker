@@ -24,6 +24,7 @@ pipeline {
                 sh 'mvn test'
             }
         }
+
         stage ('SonarQube analysis') {
             steps {
                         withSonarQubeEnv('SonarQube') {
@@ -31,33 +32,5 @@ pipeline {
                         }
             }
         }
-         stage('Docker Build') {
-              steps {
-                  node {
-    checkout scm
-
-    def customImage = docker.build("eurekaServer/Dockerfile:latest")
-
-    customImage.inside {
-        sh 'make test'
-    }
-}
-//                 eurekaServer = docker.build("eurekaServer/Dockerfile:latest")
-//                 eurekaServer.push()
-//                 sh 'docker build -t redis:latest .'
-//                 sh 'docker build -t rediscommander/redis-commander:latest .'
-//                 sh 'docker build -t eurekaServer/Dockerfile:latest .'
-//                 sh 'docker build -t zuulServer/Dockerfile:latest .'
-//                 sh 'docker build -t usersService/Dockerfile:latest .'
-//                 sh 'docker build -t tasksService/Dockerfile:latest .'
-            }
-         }
-//          stage('Docker Publish') {
-//               steps {
-//                 docker.withRegistry('https://hub.docker.com/repository/docker/belmeha/test', 'belmeha') {
-//                   eurekaServer.push()
-//                 }
-//               }
-//          }
     }
 }
