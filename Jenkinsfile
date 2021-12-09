@@ -27,10 +27,16 @@ pipeline {
 
         stage ('SonarQube analysis') {
             steps {
-                        withSonarQubeEnv('SonarQube') {
-                            sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.8.0.2131:sonar'
-                        }
+                withSonarQubeEnv('SonarQube') {
+                    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.8.0.2131:sonar'
+                }
             }
         }
+
+       stage ('Docker image') {
+           steps {
+
+           }
+       }
     }
 }
