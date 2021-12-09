@@ -35,13 +35,16 @@ pipeline {
 
        stage ('Docker image') {
            steps {
-              sh 'echo "Docker build image"'
+              sh 'echo "Docker create image"'
            }
        }
        stage ('Docker Build') {
+           agent {
+              dockerfile true
+           }
            agent any
            steps {
-               sh 'docker build redis'
+               sh 'echo "Docker build image"'
            }
        }
     }
