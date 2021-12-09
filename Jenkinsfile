@@ -42,7 +42,6 @@ pipeline {
            agent {
               dockerfile true
            }
-           agent any
            steps {
                sh 'echo "Docker build image"'
            }
