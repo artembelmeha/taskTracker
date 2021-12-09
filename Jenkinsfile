@@ -38,5 +38,11 @@ pipeline {
               sh 'echo "Docker build image"'
            }
        }
+       stage ('Docker Build') {
+           agent any
+           steps {
+               sh 'docker build redis'
+           }
+       }
     }
 }
