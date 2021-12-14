@@ -37,7 +37,7 @@ pipeline {
            steps {
               sh 'pwd'
               sh 'ls'
-              sh 'ls readlink eurekaServer/Dockerfile'
+              sh 'ls eurekaServer/Dockerfile'
               sh 'readlink eurekaServer/Dockerfile'
               sh 'docker build eurekaServer'
            }
