@@ -46,6 +46,9 @@ pipeline {
                sh 'docker-compose up -d redis'
                sh 'docker-compose up -d redis-commander'
                sh 'docker-compose up -d eureka-server'
+               sh 'docker-compose up -d zuul-server'
+               sh 'docker-compose up -d users-service'
+               sh 'docker-compose up -d tasks-service'
            }
        }
     }
