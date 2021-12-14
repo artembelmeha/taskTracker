@@ -35,8 +35,10 @@ pipeline {
 
        stage ('Docker image') {
            steps {
+              sh 'pwd'
               sh 'ls'
-              sh 'readlink -f eurekaServer/Dockerfile'
+              sh 'ls readlink eurekaServer/Dockerfile'
+              sh 'readlink eurekaServer/Dockerfile'
               sh 'docker build eurekaServer'
            }
        }
