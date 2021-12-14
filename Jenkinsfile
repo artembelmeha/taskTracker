@@ -35,8 +35,7 @@ pipeline {
 
        stage ('Docker image') {
            steps {
-              sh 'ls'
-              sh 'docker build eurekaServer/Dockerfile'
+              sh 'docker build eurekaServer'
            }
        }
        stage ('Docker Build') {
