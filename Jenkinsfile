@@ -33,17 +33,19 @@ pipeline {
             }
         }
 
-       stage ('Docker image') {
+       stage ('Docker build') {
            steps {
               sh 'docker build -f eurekaServer/Dockerfile .'
+              sh 'docker build -f zuulServer/Dockerfile .'
+              sh 'docker build -f zuulServer/Dockerfile .'
+              sh 'docker build -f tasksService/Dockerfile .'
            }
        }
-       stage ('Docker Build') {
-           agent {
-              dockerfile true
-           }
+       stage ('Docker run') {
            steps {
-               sh 'echo "Docker build image"'
+               sh 'docker-compose up -d redis'
+               sh 'docker-compose up -d redis-commander'
+               sh 'docker-compose up -d eureka-server'
            }
        }
     }
