@@ -37,7 +37,7 @@ pipeline {
            steps {
               sh 'docker build -f eurekaServer/Dockerfile .'
               sh 'docker build -f zuulServer/Dockerfile .'
-              sh 'docker build -f userService/Dockerfile .'
+              sh 'docker build -f usersService/Dockerfile .'
               sh 'docker build -f tasksService/Dockerfile .'
            }
        }
