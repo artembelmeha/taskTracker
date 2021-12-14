@@ -35,7 +35,9 @@ pipeline {
 
        stage ('Docker image') {
            steps {
-              sh 'echo "Docker create image"'
+              sh 'docker build -t redis:latest'
+              sh 'docker build -t rediscommander/redis-commander:latest '
+              sh 'docker build -t eurekaServer/Dockerfile:latest'
            }
        }
        stage ('Docker Build') {
